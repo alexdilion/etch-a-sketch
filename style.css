@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #1b1b1b;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#grid-container {
+    background-color: #1b1b1b;
+    height: 75vh;
+    aspect-ratio: 1;
+    display: grid;
+    grid-gap: 1px;
+    /* grid-template-columns: repeat(10, 1fr); */
+}
+
+.cell {
+    /* border-right: 1px solid #1b1b1b;
+    border-bottom: 1px solid #1b1b1b; */
+    background-color: #ffffff;
+}
+
+.cell:hover {
+    background-color: #d6d6d6;
+}
