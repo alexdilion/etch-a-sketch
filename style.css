@@ -1,3 +1,27 @@
+:root {
+    --pink: #ee657a;
+    --orange: #f6621f;
+    --yellow: #fecc2f;
+    --light-blue: #35beb8;
+    --red: #db3838;
+    --light-orange: #f9a228;
+    --green: #b2c225;
+    --blue: #40a4d8;
+    --purple: #a363d9;
+    --pink-shadow: #e72745;
+    --orange-shadow: #d54808;
+    --yellow-shadow: #efb601;
+    --light-blue-shadow: #2a9893;
+    --red-shadow: #ba2121;
+    --light-orange-shadow: #e08506;
+    --green-shadow: #8e9b1d;
+    --blue-shadow: #2587ba;
+    --purple-shadow: #8431cb;
+    --light-grey: #e8e8e8;
+    --grey: #b9b9b9;
+    --black: #1b1b1b;
+}
+
 * {
     box-sizing: border-box;
     font-family: "Nunito", Arial, Helvetica, sans-serif;
@@ -15,9 +39,11 @@ body {
 
 #grid-container {
     background-color: #1b1b1b;
-    height: 75vh;
+    height: 60vh;
+    width: 60vh;
     aspect-ratio: 1;
     display: grid;
+    padding: 20px;
 }
 
 .tile {
@@ -26,8 +52,8 @@ body {
 }
 
 .grid-lines {
-    border-bottom: 1px solid #1b1b1b;
-    border-right: 1px solid #1b1b1b;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    border-right: 1px solid rgba(0, 0, 0, .1);
 }
 
 .tile:hover {
@@ -35,9 +61,27 @@ body {
     box-shadow: inset 0 0 0 1px #1b1b1b;
 }
 
-.settings-wrapper {
-    height: 75vh;
-    display: flex;
-    padding: 20px;
-    background-color: #ffffff;
+.fancy-button {
+    border: none;
+    padding: 15px 30px;
+    color: var(--light-grey);
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: var(--red);
+    box-shadow: 0 4px 0 0 var(--red-shadow);
+    transition: all ease-in 0.1s;
+    transition-property: transform, box-shadow;
+}
+
+.fancy-button:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 var(--red-shadow);
+}
+
+.fancy-button:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 0 var(--red-shadow);
 }
