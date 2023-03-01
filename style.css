@@ -10,6 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
 #grid-container {
@@ -17,16 +18,26 @@ body {
     height: 75vh;
     aspect-ratio: 1;
     display: grid;
-    grid-gap: 1px;
-    /* grid-template-columns: repeat(10, 1fr); */
 }
 
-.cell {
-    /* border-right: 1px solid #1b1b1b;
-    border-bottom: 1px solid #1b1b1b; */
+.tile {
     background-color: #ffffff;
+    pointer-events: fill;
 }
 
-.cell:hover {
-    background-color: #d6d6d6;
+.grid-lines {
+    border-bottom: 1px solid #1b1b1b;
+    border-right: 1px solid #1b1b1b;
+}
+
+.tile:hover {
+    /* background-color: #e2e2e2; */
+    box-shadow: inset 0 0 0 1px #1b1b1b;
+}
+
+.settings-wrapper {
+    height: 75vh;
+    display: flex;
+    padding: 20px;
+    background-color: #ffffff;
 }

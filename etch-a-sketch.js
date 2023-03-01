@@ -1,27 +1,26 @@
 let gridContainer = document.getElementById("grid-container");
+let tiles
 
-const defaultSettings = {
-  "gridSize": 16,
-  "selectedTool": "pencil",
+const DEFAULT_SETTINGS = {
+  "gridSize": 32,
+  "selectedTool": "brush",
   "backgroundColor": "#",
   "gridLinesEnabled": true
 }
 
-const settingLimits = {
+const SETTING_LIMITS = {
   "maxGridSize": 64,
   "minGridSize": 1
 }
 
-const states = [
-  "pencil",
-  "brush",
-  "erase",
-  "fill",
-  "line", 
-  "shape"
-]
+const TOOLS = {
+  "brush": paint,
+}
 
-let settings = defaultSettings;
+let settings = DEFAULT_SETTINGS;
+let mouseDown = false;
+let selectedColour = "#1b1b1b"
+let currentTool = "brush"
 
 function generateGrid() {
   let numCells = Math.pow(settings["gridSize"], 2);
@@ -30,11 +29,34 @@ function generateGrid() {
   gridContainer.style.gridTemplateColumns = `repeat(${settings["gridSize"]}, 1fr)`
 
   for (let i = 0; i < numCells; i++) {
-    let cell = document.createElement("div");
-    cell.id = `cell${i}`;
-    cell.classList.add("cell");
-    gridContainer.appendChild(cell);
+    let tile = document.createElement("div");
+    tile.id = `tile${i}`;
+    tile.classList.add("tile");
+    gridContainer.appendChild(tile);
   }
+
+  tiles = document.querySelectorAll(".tile");
+}
+
+function paint(tile) {
+  tile.style.backgroundColor = selectedColour;
 }
 
 generateGrid()
+
+tiles.forEach((tile) => {
+  tile.addEventListener("mouseover", () => {
+    if (mouseDown) {
+      TOOLS[currentTool](tile)
+    }
+  })
+})
+
+document.addEventListener("mousedown", (e) => {
+  mouseDown = true;
+  TOOLS[currentTool](e.target)
+})
+
+document.addEventListener("mouseup", () => {
+  mouseDown = false;
+})
