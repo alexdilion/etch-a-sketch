@@ -22,28 +22,52 @@
     --black: #1b1b1b;
 }
 
+@keyframes rainbow {
+    0% {text-shadow: 3px 3px 0px var(--red);}
+    14% {text-shadow: 3px 3px 0px var(--orange);}
+    28% {text-shadow: 3px 3px 0px var(--yellow);}
+    42% {text-shadow: 3px 3px 0px var(--green);}
+    56% {text-shadow: 3px 3px 0px var(--blue);}
+    70% {text-shadow: 3px 3px 0px var(--pink);}
+    84% {text-shadow: 3px 3px 0px var(--purple);}
+}
+
 * {
     box-sizing: border-box;
-    font-family: "Nunito", Arial, Helvetica, sans-serif;
+    font-family: 'Martian Mono', 'Courier New', Courier, monospace;
+    letter-spacing: 0px;
 }
 
 body {
-    background-color: #1b1b1b;
+    background-color: var(--light-grey);
     height: 100vh;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 50px;
+    text-shadow: 3px 3px 0px var(--red);
+    animation-name: rainbow;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
 }
 
 #grid-container {
-    background-color: #1b1b1b;
+    background-color: #2b2b2b;
     height: 60vh;
     width: 60vh;
     aspect-ratio: 1;
     display: grid;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 15px 0 0 #1b1b1b;
+    margin-top: 40px;
+    margin-bottom: 55px;
 }
 
 .tile {
@@ -84,4 +108,55 @@ body {
 .fancy-button:active {
     transform: translateY(6px);
     box-shadow: 0 0px 0 0 var(--red-shadow);
+}
+
+.grid-settings {
+    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.single-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.single-row > * {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.grid-size-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#textGridSize {
+    width: 3rem;
+    text-align: center;
+    height: 2rem;
+    font-size: 15px;;
+}
+
+label {
+    font-size: 15px;
+}
+
+.textbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.textbox-wrapper div {
+    font-size: 15px;
+}
+
+.clear-grid-wrapper {
+    display: flex;
+    justify-content: center;
 }

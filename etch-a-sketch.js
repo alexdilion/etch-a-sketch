@@ -15,7 +15,7 @@ const SETTING_LIMITS = {
 
 const TOOLS = {
     brush: paint,
-    eraser: erase,
+    eraser: erase
 };
 
 let settings = DEFAULT_SETTINGS;
@@ -79,7 +79,9 @@ tiles.forEach((tile) => {
 
 document.addEventListener("mousedown", (e) => {
     mouseDown = true;
-    TOOLS[currentTool](e.target);
+    if (e.target.classList.contains("tile")) {
+        TOOLS[currentTool](e.target);
+    }
 });
 
 document.addEventListener("mouseup", () => {

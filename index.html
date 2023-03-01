@@ -6,13 +6,39 @@
         <link rel="stylesheet" href="style.css" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Martian+Mono&display=swap"
             rel="stylesheet"
         />
         <script src="etch-a-sketch.js" defer></script>
     </head>
     <body ondragstart="return false;" ondrop="return false;">
+        <div class="title">
+            <h1>Etch A Sketch</h1>
+        </div>
         <div id="grid-container">
+        </div>
+        <div class="grid-settings">
+            <div class="grid-size-wrapper">
+                <label for="gridSize">Grid Size:</label>
+                <input type="range" name="gridSize" id="rangeGridSize" min="1" max="64" value="16">
+                <div class="textbox-wrapper">
+                    <input type="text" name="textGridSize" id="textGridSize" maxlength="2">
+                    <div> X 16</div>
+                </div>
+            </div>
+            <div class="single-row">
+                <div class="grid-lines-wrapper">
+                    <label for="gridLines">Grid Lines:</label>
+                    <input type="checkbox" name="gridLines" id="checkGridLines" checked>
+                </div>
+                <div class="background-color-wrapper">
+                    <label for="background-color">Background Color:</label>
+                    <input type="color" name="background-color" id="colorBackgroundColor" value="#ffffff">
+                </div>
+            </div>
+            <div class="clear-grid-wrapper">
+                <input type="button" value="Clear Canvas" id="buttonClearGrid">
+            </div>
         </div>
     </body>
 </html>
