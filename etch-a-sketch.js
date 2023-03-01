@@ -2,9 +2,9 @@ let gridContainer = document.getElementById("grid-container");
 let tiles
 
 const DEFAULT_SETTINGS = {
-  "gridSize": 32,
+  "gridSize": 16,
   "selectedTool": "brush",
-  "backgroundColor": "#",
+  "backgroundColor": "#ffffff",
   "gridLinesEnabled": true
 }
 
@@ -15,12 +15,14 @@ const SETTING_LIMITS = {
 
 const TOOLS = {
   "brush": paint,
+  "eraser": erase
 }
 
 let settings = DEFAULT_SETTINGS;
 let mouseDown = false;
-let selectedColour = "#1b1b1b"
+let selectedColor = "#1b1b1b"
 let currentTool = "brush"
+let backgroundColor = DEFAULT_SETTINGS["backgroundColor"]
 
 function generateGrid() {
   let numCells = Math.pow(settings["gridSize"], 2);
@@ -39,7 +41,11 @@ function generateGrid() {
 }
 
 function paint(tile) {
-  tile.style.backgroundColor = selectedColour;
+  tile.style.backgroundColor = selectedColor;
+}
+
+function erase(tile) {
+  tile.style.backgroundColor = backgroundColor
 }
 
 generateGrid()
