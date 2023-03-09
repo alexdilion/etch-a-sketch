@@ -1,31 +1,38 @@
-let gridContainer = document.getElementById("grid-container");
-let tiles;
-
 const DEFAULT_SETTINGS = {
     gridSize: 16,
     selectedTool: "brush",
     backgroundColor: "#ffffff",
     gridLinesEnabled: true,
+    selectedColor: "#1b1b1b",
+    selectedTool: "brush",
+    maxGridSize: 50,
+    minGridSize: 1
 };
 
-const SETTING_LIMITS = {
-    maxGridSize: 64,
-    minGridSize: 1,
-};
+let tiles;
+let gridContainer = document.getElementById("grid-container");
+let rangeGridSize = document.getElementById("rangeGridSize");
+let tbGridSize = document.getElementById("textGridSize");
+let tbGridSizeMultiplier = document.querySelector(".textbox-wrapper div");
+let chkToggleGridLines = document.getElementById("checkGridLines");
+let btnClearGrid = document.getElementById("btnClearGrid");
+
+let mouseDown = false;
+let settings = DEFAULT_SETTINGS;
+let selectedColor = settings.selectedColor;
+let currentTool = settings.selectedTool;
+let backgroundColor = settings.backgroundColor;
 
 const TOOLS = {
     brush: paint,
-    eraser: erase
+    eraser: erase,
 };
-
-let settings = DEFAULT_SETTINGS;
-let mouseDown = false;
-let selectedColor = "#1b1b1b";
-let currentTool = "brush";
-let backgroundColor = DEFAULT_SETTINGS["backgroundColor"];
 
 function generateGrid() {
     let numCells = Math.pow(settings.gridSize, 2);
+
+    tiles = {};
+    gridContainer.innerHTML = "";
 
     // Makes the cells square-y
     gridContainer.style.gridTemplateColumns = `repeat(${settings["gridSize"]}, 1fr)`;
@@ -43,6 +50,14 @@ function generateGrid() {
     }
 
     tiles = document.querySelectorAll(".tile");
+
+    tiles.forEach((tile) => {
+        tile.addEventListener("mouseover", () => {
+            if (mouseDown) {
+                TOOLS[currentTool](tile);
+            }
+        });
+    });
 }
 
 function paint(tile) {
@@ -53,37 +68,68 @@ function erase(tile) {
     tile.style.backgroundColor = backgroundColor;
 }
 
+function changeBackgroundColor(newBgColor) {
+    settings.backgroundColor = newBgColor;
+}
+
 function toggleGrid() {
-    settings.gridLinesEnabled = !settings.gridLinesEnabled
+    settings.gridLinesEnabled = !settings.gridLinesEnabled;
 
     if (settings.gridLinesEnabled) {
-        tiles.forEach(tile => {
+        tiles.forEach((tile) => {
             tile.classList.add("grid-lines");
-        })
+        });
     } else {
-        tiles.forEach(tile => {
+        tiles.forEach((tile) => {
             tile.classList.remove("grid-lines");
-        })
+        });
     }
+}
+
+function clearGrid() {
+    tiles.forEach((tile) => {
+        erase(tile);
+    })
+}
+
+function onMouseDown(mouse) {
+    mouseDown = true;
+    if (mouse.target.classList.contains("tile")) {
+        TOOLS[currentTool](mouse.target);
+    }
+}
+
+function onMouseUp(mouse) {
+    mouseDown = false;
 }
 
 generateGrid();
 
-tiles.forEach((tile) => {
-    tile.addEventListener("mouseover", () => {
-        if (mouseDown) {
-            TOOLS[currentTool](tile);
+document.addEventListener("mousedown", onMouseDown);
+document.addEventListener("mouseup", onMouseUp);
+chkToggleGridLines.addEventListener("change", toggleGrid);
+btnClearGrid.addEventListener("click", clearGrid);
+
+rangeGridSize.addEventListener("change", () => {
+    let newGridSize = +rangeGridSize.value;
+    tbGridSize.value = newGridSize;
+    tbGridSizeMultiplier.textContent = "X " + newGridSize;
+
+    settings.gridSize = newGridSize;
+
+    generateGrid(newGridSize)
+})
+
+tbGridSize.addEventListener("change", () => {
+    if (Number(tbGridSize.value) !== Number.NaN) {
+        let newGridSize = +tbGridSize.value
+        if (newGridSize >= settings.minGridSize && newGridSize <= settings.maxGridSize) {
+            rangeGridSize.value = newGridSize;
+            tbGridSizeMultiplier.textContent = "X " + newGridSize;
+
+            settings.gridSize = newGridSize;
+
+            generateGrid()
         }
-    });
-});
-
-document.addEventListener("mousedown", (e) => {
-    mouseDown = true;
-    if (e.target.classList.contains("tile")) {
-        TOOLS[currentTool](e.target);
-    }
-});
-
-document.addEventListener("mouseup", () => {
-    mouseDown = false;
-});
+    } 
+})
