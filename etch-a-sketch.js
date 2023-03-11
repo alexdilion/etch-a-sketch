@@ -43,9 +43,7 @@ function generateGrid() {
         tile.id = `tile${i}`;
         tile.classList.add("tile");
         tile.classList.add("bg");
-
-        // console.log(settings.backgroundColor);
-        // tile.style.backgroundColor = settings.backgroundColor;
+        tile.style.backgroundColor = settings.backgroundColor;
 
         if (settings.gridLinesEnabled) {
             tile.classList.add("grid-lines");

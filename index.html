@@ -15,29 +15,93 @@
         <div class="title">
             <h1>Etch A Sketch</h1>
         </div>
-        <div id="grid-container">
+        <div class="canvas-container">
+            <div class="tools-container">
+                <div class="tools-container2">
+                    <input
+                        type="button"
+                        value="Brush"
+                        id="btnBrush"
+                        class="fancy-button fb-green"
+                    />
+                    <input
+                        type="button"
+                        value="Rainbow"
+                        id="btnRainbow"
+                        class="fancy-button fb-rainbow"
+                    />
+                    <input
+                        type="button"
+                        value="Darken"
+                        id="btnDarken"
+                        class="fancy-button fb-dark"
+                    />
+                </div>
+
+                <div class="brush-color-container">
+                    <label for="colorSelectedColor">Brush Color:</label>
+                    <input type="color" id="colorSelectedColor" value="#1b1b1b" name="colorSelectedColor">
+                </div>
+
+                <input
+                    type="button"
+                    value="Erase"
+                    id="btnErase"
+                    class="fancy-button fb-red"
+                />
+            </div>
+            <div id="grid-container"></div>
+            <div class="tools-container"></div>
         </div>
         <div class="grid-settings">
             <div class="grid-size-wrapper">
                 <label for="gridSize">Grid Size:</label>
-                <input type="range" name="gridSize" id="rangeGridSize" min="1" max="50" value="16">
+                <input
+                    type="range"
+                    name="gridSize"
+                    id="rangeGridSize"
+                    min="1"
+                    max="50"
+                    value="16"
+                />
                 <div class="textbox-wrapper">
-                    <input type="text" name="textGridSize" id="textGridSize" maxlength="2" value="16">
-                    <div> X 16</div>
+                    <input
+                        type="text"
+                        name="textGridSize"
+                        id="textGridSize"
+                        maxlength="2"
+                        value="16"
+                    />
+                    <div>X 16</div>
                 </div>
             </div>
             <div class="single-row">
                 <div class="grid-lines-wrapper">
                     <label for="gridLines">Grid Lines:</label>
-                    <input type="checkbox" name="gridLines" id="checkGridLines" checked>
+                    <input
+                        type="checkbox"
+                        name="gridLines"
+                        id="checkGridLines"
+                        checked
+                    />
                 </div>
                 <div class="background-color-wrapper">
                     <label for="background-color">Background Color:</label>
-                    <input type="color" name="background-color" id="colorBackgroundColor" value="#ffffff">
+                    <input
+                        type="color"
+                        name="background-color"
+                        id="colorBackgroundColor"
+                        value="#ffffff"
+                    />
                 </div>
             </div>
             <div class="clear-grid-wrapper">
-                <input type="button" value="Clear Canvas" id="btnClearGrid" class="fancy-button">
+                <input
+                    type="button"
+                    value="Clear Canvas"
+                    id="btnClearGrid"
+                    class="fancy-button fb-red"
+                />
             </div>
         </div>
     </body>
