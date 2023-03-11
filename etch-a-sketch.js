@@ -16,6 +16,7 @@ let tbGridSize = document.getElementById("textGridSize");
 let tbGridSizeMultiplier = document.querySelector(".textbox-wrapper div");
 let chkToggleGridLines = document.getElementById("checkGridLines");
 let btnClearGrid = document.getElementById("btnClearGrid");
+let colorBackgroundColor = document.getElementById("colorBackgroundColor");
 
 let mouseDown = false;
 let settings = DEFAULT_SETTINGS;
@@ -41,6 +42,10 @@ function generateGrid() {
         let tile = document.createElement("div");
         tile.id = `tile${i}`;
         tile.classList.add("tile");
+        tile.classList.add("bg");
+
+        // console.log(settings.backgroundColor);
+        // tile.style.backgroundColor = settings.backgroundColor;
 
         if (settings.gridLinesEnabled) {
             tile.classList.add("grid-lines");
@@ -62,14 +67,23 @@ function generateGrid() {
 
 function paint(tile) {
     tile.style.backgroundColor = selectedColor;
+    tile.classList.remove("bg");
 }
 
 function erase(tile) {
-    tile.style.backgroundColor = backgroundColor;
+    tile.style.backgroundColor = settings.backgroundColor;
+    tile.classList.add("bg");
 }
 
 function changeBackgroundColor(newBgColor) {
+    console.log("Working");
     settings.backgroundColor = newBgColor;
+    
+    tiles.forEach(tile => {
+        if (tile.classList.contains("bg")) {
+            tile.style.backgroundColor = newBgColor;
+        }
+    })
 }
 
 function toggleGrid() {
@@ -109,6 +123,9 @@ document.addEventListener("mousedown", onMouseDown);
 document.addEventListener("mouseup", onMouseUp);
 chkToggleGridLines.addEventListener("change", toggleGrid);
 btnClearGrid.addEventListener("click", clearGrid);
+colorBackgroundColor.addEventListener("input", (e) => {
+    changeBackgroundColor(e.target.value);
+});
 
 rangeGridSize.addEventListener("change", () => {
     let newGridSize = +rangeGridSize.value;
