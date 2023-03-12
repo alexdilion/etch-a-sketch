@@ -21,18 +21,18 @@ const RANDOM_COLORS = [
 ]
 
 let tiles;
-let gridContainer = document.getElementById("grid-container");
-let rangeGridSize = document.getElementById("rangeGridSize");
-let tbGridSize = document.getElementById("textGridSize");
-let tbGridSizeMultiplier = document.querySelector(".textbox-wrapper div");
-let chkToggleGridLines = document.getElementById("checkGridLines");
-let btnClearGrid = document.getElementById("btnClearGrid");
-let colorBackgroundColor = document.getElementById("colorBackgroundColor");
-let btnErase = document.getElementById("btnErase");
-let btnBrush = document.getElementById("btnBrush");
-let btnRainbow = document.getElementById("btnRainbow");
-let btnDarken = document.getElementById("btnDarken");
-let colorSelectedColor = document.getElementById("colorSelectedColor");
+const gridContainer = document.getElementById("grid-container");
+const rangeGridSize = document.getElementById("rangeGridSize");
+const tbGridSize = document.getElementById("textGridSize");
+const tbGridSizeMultiplier = document.querySelector(".textbox-wrapper div");
+const chkToggleGridLines = document.getElementById("checkGridLines");
+const btnClearGrid = document.getElementById("btnClearGrid");
+const colorBackgroundColor = document.getElementById("colorBackgroundColor");
+const btnErase = document.getElementById("btnErase");
+const btnBrush = document.getElementById("btnBrush");
+const btnRainbow = document.getElementById("btnRainbow");
+const btnDarken = document.getElementById("btnDarken");
+const colorSelectedColor = document.getElementById("colorSelectedColor");
 
 let mouseDown = false;
 let settings = DEFAULT_SETTINGS;
@@ -168,8 +168,8 @@ function changeTool(e) {
 
 generateGrid();
 
-document.addEventListener("mousedown", onMouseDown);
-document.addEventListener("mouseup", onMouseUp);
+document.body.addEventListener("mousedown", onMouseDown);
+document.body.addEventListener("mouseup", onMouseUp);
 chkToggleGridLines.addEventListener("change", toggleGrid);
 btnClearGrid.addEventListener("click", clearGrid);
 btnBrush.addEventListener("click", changeTool);
