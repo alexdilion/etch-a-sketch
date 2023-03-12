@@ -6,8 +6,8 @@
     --red: #db3838;
     --light-orange: #f9a228;
     --green: #b2c225;
-    --blue: #40a4d8;
     --purple: #a363d9;
+    --blue: #40a4d8;
     --pink-shadow: #e72745;
     --orange-shadow: #d54808;
     --yellow-shadow: #efb601;
@@ -37,7 +37,7 @@
     box-sizing: border-box;
     font-family: 'Martian Mono', 'Courier New', Courier, monospace;
     letter-spacing: 0px;
-    color: black;
+    color: var(--black);
 }
 
 body {

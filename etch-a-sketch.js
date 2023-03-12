@@ -4,10 +4,21 @@ const DEFAULT_SETTINGS = {
     backgroundColor: "#ffffff",
     gridLinesEnabled: true,
     selectedColor: "#1b1b1b",
-    selectedTool: "brush",
+    selectedTool: "erase",
     maxGridSize: 50,
-    minGridSize: 1
+    minGridSize: 1,
+    darkenAmount: 10
 };
+
+const RANDOM_COLORS = [
+    "#ee657a",
+    "#f6621f",
+    "#fecc2f",
+    "#db3838",
+    "#b2c225",
+    "#a363d9",
+    "#40a4d8"
+]
 
 let tiles;
 let gridContainer = document.getElementById("grid-container");
@@ -17,16 +28,20 @@ let tbGridSizeMultiplier = document.querySelector(".textbox-wrapper div");
 let chkToggleGridLines = document.getElementById("checkGridLines");
 let btnClearGrid = document.getElementById("btnClearGrid");
 let colorBackgroundColor = document.getElementById("colorBackgroundColor");
+let btnErase = document.getElementById("btnErase");
+let btnBrush = document.getElementById("btnBrush");
+let btnRainbow = document.getElementById("btnRainbow");
+let btnDarken = document.getElementById("btnDarken");
+let colorSelectedColor = document.getElementById("colorSelectedColor");
 
 let mouseDown = false;
 let settings = DEFAULT_SETTINGS;
-let selectedColor = settings.selectedColor;
-let currentTool = settings.selectedTool;
-let backgroundColor = settings.backgroundColor;
 
 const TOOLS = {
-    brush: paint,
-    eraser: erase,
+    "brush": paint,
+    "erase": erase,
+    "rainbow": rainbow,
+    "darken": darken
 };
 
 function generateGrid() {
@@ -57,24 +72,47 @@ function generateGrid() {
     tiles.forEach((tile) => {
         tile.addEventListener("mouseover", () => {
             if (mouseDown) {
-                TOOLS[currentTool](tile);
+                TOOLS[settings.selectedTool](tile);
             }
         });
     });
 }
 
 function paint(tile) {
-    tile.style.backgroundColor = selectedColor;
+    tile.style.backgroundColor = settings.selectedColor;
     tile.classList.remove("bg");
+    tile.style.filter = ""
 }
 
 function erase(tile) {
     tile.style.backgroundColor = settings.backgroundColor;
     tile.classList.add("bg");
+    tile.style.filter = ""
+}
+
+function darken(tile) {
+    let filter = tile.style.filter;
+
+    if (filter !== "") {
+        let currentValue = +filter.substring(filter.indexOf("(") + 1, filter.indexOf("%"))
+
+        tile.style.filter = `brightness(${currentValue - settings.darkenAmount}%)`;
+
+        return
+    }
+
+    tile.style.filter = `brightness(${100 - settings.darkenAmount}%)`;
+}
+
+function rainbow(tile) {
+    let color = randomFromArray(RANDOM_COLORS);
+
+    tile.style.backgroundColor = color;
+    tile.classList.remove("bg");
+    tile.style.filter = "";
 }
 
 function changeBackgroundColor(newBgColor) {
-    console.log("Working");
     settings.backgroundColor = newBgColor;
     
     tiles.forEach(tile => {
@@ -82,6 +120,10 @@ function changeBackgroundColor(newBgColor) {
             tile.style.backgroundColor = newBgColor;
         }
     })
+}
+
+function changeSelectedColor(color) {
+    settings.selectedColor = color;
 }
 
 function toggleGrid() {
@@ -98,6 +140,10 @@ function toggleGrid() {
     }
 }
 
+function randomFromArray(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+}
+
 function clearGrid() {
     tiles.forEach((tile) => {
         erase(tile);
@@ -107,12 +153,17 @@ function clearGrid() {
 function onMouseDown(mouse) {
     mouseDown = true;
     if (mouse.target.classList.contains("tile")) {
-        TOOLS[currentTool](mouse.target);
+        TOOLS[settings.selectedTool](mouse.target);
     }
 }
 
 function onMouseUp(mouse) {
     mouseDown = false;
+}
+
+function changeTool(e) {
+    let value = e.target.value.toLowerCase();
+    settings.selectedTool = value;
 }
 
 generateGrid();
@@ -121,9 +172,18 @@ document.addEventListener("mousedown", onMouseDown);
 document.addEventListener("mouseup", onMouseUp);
 chkToggleGridLines.addEventListener("change", toggleGrid);
 btnClearGrid.addEventListener("click", clearGrid);
+btnBrush.addEventListener("click", changeTool);
+btnErase.addEventListener("click", changeTool);
+btnRainbow.addEventListener("click", changeTool)
+btnDarken.addEventListener("click", changeTool)
+
 colorBackgroundColor.addEventListener("input", (e) => {
     changeBackgroundColor(e.target.value);
 });
+
+colorSelectedColor.addEventListener("input", (e) => {
+    changeSelectedColor(e.target.value);
+})
 
 rangeGridSize.addEventListener("change", () => {
     let newGridSize = +rangeGridSize.value;
